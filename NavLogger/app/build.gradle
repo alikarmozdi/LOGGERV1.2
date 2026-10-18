@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.navlogger.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.navlogger.app'
+        minSdk 29
+        targetSdk 34
+        versionCode 2
+        versionName '2.0'
+    }
+
+    // Fixed signing key kept in the repository, so every new APK installs over the previous one.
+    signingConfigs {
+        navkey {
+            storeFile file('navlogger.jks')
+            storePassword 'navlogger'
+            keyAlias 'navlogger'
+            keyPassword 'navlogger'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.navkey
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.navkey
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
